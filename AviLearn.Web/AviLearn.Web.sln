@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11626.173 insiders
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviLearn.Web", "AviLearn.Web.csproj", "{A3D73A6F-C25E-4952-B67B-31CF1ADBE57F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3D73A6F-C25E-4952-B67B-31CF1ADBE57F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3D73A6F-C25E-4952-B67B-31CF1ADBE57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3D73A6F-C25E-4952-B67B-31CF1ADBE57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3D73A6F-C25E-4952-B67B-31CF1ADBE57F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB74898B-A990-48E0-B010-6F5687CDE269}
+	EndGlobalSection
+EndGlobal

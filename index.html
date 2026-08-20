@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
+    <title>AviLearn — Interactive Digital Learning Hub for Ornithology</title>
+    <meta name="description" content="AviLearn bridges amateur bird watching and ornithological studies. Explore bird species taxonomy, audio calls, interactive quizzes, anatomy labs, and AI-powered species identification." />
+    <meta name="keywords" content="ornithology, bird watching, bird identification, avian anatomy, birding quiz, bird species database, field guide" />
+    <meta name="author" content="AviLearn Ornithology Hub" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="AviLearn — Interactive Digital Ornithology Learning Hub" />
+    <meta property="og:description" content="Discover birds through interactive quizzes, species directories, audio calls, and AI-powered identification. Free for all birding enthusiasts." />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+      External Stylesheet — styles/avilearn.css
+      Loaded as a standard <link> tag (external CSS requirement).
+      Contains: design tokens, responsive grid, component styles, media queries.
+    -->
+    <link rel="stylesheet" href="/styles/avilearn.css" />
+
+    <!-- Favicon (inline SVG data URI) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%233D4435' rx='4'/%3E%3Cpath d='M12 21q-3-4-6-7-4-3.5-1-8 1.5-2 4-2 2.5 0 3 2.5Q13 4 16 4q3.5 0 5 3.5 1.5 4.5-3 7.5l-6 6z' fill='white'/%3E%3C/svg%3E" />
+
+    <!--
+      Internal page-level styles (internal CSS requirement — satisfies mix of CSS types).
+      These complement the external avilearn.css and per-component <style> blocks.
+    -->
+    <style>
+      /* AviLearn — Internal Document-Level Styles */
+
+      /* Smooth scroll and base page transitions */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #F7F5F0;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #C5C0B8;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #8C867A;
+      }
+
+      /* Text selection highlight */
+      ::selection {
+        background-color: #3D4435;
+        color: #FDFCFB;
+      }
+
+      /* Loading spinner (used in form buttons) */
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Focus ring for accessibility */
+      *:focus-visible {
+        outline: 2px solid #3D4435;
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
+
+      /* Print stylesheet overrides */
+      @media print {
+        .site-header,
+        .toast,
+        .modal-overlay,
+        footer nav { display: none !important; }
+      }
+
+      /* High contrast mode support */
+      @media (prefers-contrast: high) {
+        :root {
+          --color-border: rgba(0,0,0,0.3);
+          --color-text-muted: #3D3D3D;
+        }
+      }
+
+      /* Reduced motion support */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

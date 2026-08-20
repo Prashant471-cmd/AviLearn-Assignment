@@ -1,0 +1,48 @@
+/*
+ * AviLearn — Main CSS Entry Point
+ * File: src/index.css
+ * Description: Imports Tailwind CSS and provides override/augmentation styles.
+ *              Works in conjunction with styles/avilearn.css (external stylesheet)
+ *              and per-component internal <style> blocks.
+ *
+ *              CSS Strategy:
+ *              1. External: styles/avilearn.css  — full design system (linked in index.html)
+ *              2. Internal: <style> in each page component — page-specific overrides
+ *              3. Inline: style={{ }} attributes — dynamic/one-off values
+ */
+
+@import "tailwindcss";
+
+@layer base {
+  /* Body font is set in styles/avilearn.css but duplicated here for Tailwind layer */
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #FDFCFB;
+    color: #121212;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+/* Tailwind-compatible utility overrides */
+@layer utilities {
+  .font-serif   { font-family: 'Playfair Display', Georgia, serif !important; }
+  .font-sans    { font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important; }
+  .font-news    { font-family: 'Newsreader', Georgia, serif !important; }
+
+  /* Scrollbar hidden utility */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Spin animation for loading indicators */
+  .animate-spin {
+    animation: spin 0.7s linear infinite;
+  }
+}

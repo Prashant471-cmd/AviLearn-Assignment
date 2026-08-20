@@ -1,0 +1,7 @@
+E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLearn.Web.csproj.AssemblyReference.cache
+E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLearn.Web.csproj.CoreCompileInputs.cache
+E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\bin\AviLearn.Web.dll.config
+E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\bin\AviLearn.Web.dll
+E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\bin\AviLearn.Web.pdb
+E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLearn.Web.dll
+E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLearn.Web.pdb
