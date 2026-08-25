@@ -1,0 +1,80 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="AviLearn.Web.Admin.AdminMaster" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Admin - AviLearn</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
+    <link href="~/styles/avilearn.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 2rem;
+            min-height: 100vh;
+        }
+        .admin-sidebar {
+            background-color: #1a1a2e;
+            color: white;
+            padding: 2rem 1rem;
+        }
+        .admin-sidebar a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .admin-sidebar a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .admin-main {
+            padding: 2rem;
+            background-color: var(--color-bg);
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <h2 style="font-family: 'Playfair Display', serif; color: white; margin-bottom: 2rem; padding-left: 1rem;">AviLearn Admin</h2>
+                <nav>
+                    <a href="Default.aspx">Activity Overview</a>
+                    <a href="BirdSpecies.aspx">Bird Species (CRUD)</a>
+                    <a href="Users.aspx">User Accounts</a>
+                    <a href="../Default.aspx" style="margin-top: 2rem; color: #D32F2F;">&larr; Exit to Public Site</a>
+                </nav>
+            </aside>
+            
+            <main class="admin-main">
+                <header class="admin-header">
+                    <h1 style="font-size: 1.5rem; margin: 0;"><%: Page.Title %></h1>
+                    <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem;">
+                        Admin: <%: Session["UserName"] %>
+                    </span>
+                </header>
+                
+                <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+            </main>
+        </div>
+    </form>
+</body>
+</html>
