@@ -1,0 +1,6 @@
+{
+  "name": "AviLearn - Digital Learning Hub for Ornithology",
+  "description": "AviLearn is an interactive digital learning hub for ornithology providing bird identification directories, acoustic call samples, self-assessment quizzes, and field journal tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
