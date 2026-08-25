@@ -40,6 +40,7 @@ BEGIN
         RarityLevel NVARCHAR(20) NOT NULL, -- Common, Uncommon, Rare, Vagrant
         MigrationStatus NVARCHAR(50) NOT NULL,
         ImageUrl NVARCHAR(255),
+        AudioUrl NVARCHAR(255),
         CallDescription NVARCHAR(MAX),
         FunFact NVARCHAR(MAX),
         Nesting NVARCHAR(MAX),
@@ -121,7 +122,7 @@ GO
 -- Insert Sample Bird if it doesn't exist
 IF NOT EXISTS (SELECT * FROM BirdSpecies WHERE Id = 'bird_1')
 BEGIN
-    INSERT INTO BirdSpecies (Id, CommonName, ScientificName, TaxonomicOrder, Family, Genus, Description, ConservationStatus, StatusLabel, RarityLevel, MigrationStatus, ImageUrl, Habitat, Diet, Region, KeyFieldMarks, AudioFrequencyHz, AudioPattern) VALUES
-    ('bird_1', 'Northern Cardinal', 'Cardinalis cardinalis', 'Passeriformes', 'Cardinalidae', 'Cardinalis', 'The northern cardinal is a species of passerine bird in the family Cardinalidae. It is also known colloquially as the redbird, common cardinal, red cardinal, or just cardinal.', 'LC', 'Least Concern', 'Common', 'Resident', 'https://images.unsplash.com/photo-1549608276-5786777e6587', '["Woodlands", "Gardens"]', '["Seeds", "Insects", "Berries"]', '["North America"]', '["Bright red body (males)", "Prominent crest", "Thick orange bill"]', 1200, 'whistle-slide');
+    INSERT INTO BirdSpecies (Id, CommonName, ScientificName, TaxonomicOrder, Family, Genus, Description, ConservationStatus, StatusLabel, RarityLevel, MigrationStatus, ImageUrl, AudioUrl, Habitat, Diet, Region, KeyFieldMarks, AudioFrequencyHz, AudioPattern) VALUES
+    ('bird_1', 'Northern Cardinal', 'Cardinalis cardinalis', 'Passeriformes', 'Cardinalidae', 'Cardinalis', 'The northern cardinal is a species of passerine bird in the family Cardinalidae. It is also known colloquially as the redbird, common cardinal, red cardinal, or just cardinal.', 'LC', 'Least Concern', 'Common', 'Resident', 'https://images.unsplash.com/photo-1549608276-5786777e6587', NULL, '["Woodlands", "Gardens"]', '["Seeds", "Insects", "Berries"]', '["North America"]', '["Bright red body (males)", "Prominent crest", "Thick orange bill"]', 1200, 'whistle-slide');
 END
 GO

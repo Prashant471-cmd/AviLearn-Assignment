@@ -71,6 +71,7 @@
     <Content Include="Quiz.aspx" />
     <Content Include="Admin\Default.aspx" />
     <Content Include="Admin\BirdSpecies.aspx" />
+    <Content Include="Admin\Users.aspx" />
     <Content Include="styles\avilearn.css" />
     <Content Include="scripts\quiz.js" />
     <Content Include="scripts\validation.js" />
@@ -111,6 +112,9 @@
     </Content>
     <Content Include="Admin\BirdSpecies.aspx.cs">
       <DependentUpon>BirdSpecies.aspx</DependentUpon>
+    </Content>
+    <Content Include="Admin\Users.aspx.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
     </Content>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

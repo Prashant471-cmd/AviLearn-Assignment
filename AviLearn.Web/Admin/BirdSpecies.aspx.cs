@@ -58,8 +58,8 @@ namespace AviLearn.Web.Admin
                 {
                     conn.Open();
                     string insertQuery = @"INSERT INTO BirdSpecies 
-                        (Id, CommonName, ScientificName, TaxonomicOrder, Family, Description, ConservationStatus, StatusLabel, RarityLevel, MigrationStatus, ImageUrl) 
-                        VALUES (@Id, @CommonName, @ScientificName, 'Passeriformes', @Family, @Desc, @Status, 'Label', 'Common', 'Resident', @Img)";
+                        (Id, CommonName, ScientificName, TaxonomicOrder, Family, Description, ConservationStatus, StatusLabel, RarityLevel, MigrationStatus, ImageUrl, AudioUrl) 
+                        VALUES (@Id, @CommonName, @ScientificName, 'Passeriformes', @Family, @Desc, @Status, 'Label', 'Common', 'Resident', @Img, @Audio)";
                     
                     using (SqlCommand cmd = new SqlCommand(insertQuery, conn))
                     {
@@ -70,6 +70,7 @@ namespace AviLearn.Web.Admin
                         cmd.Parameters.AddWithValue("@Status", ddlStatus.SelectedValue);
                         cmd.Parameters.AddWithValue("@Desc", txtDesc.Text.Trim());
                         cmd.Parameters.AddWithValue("@Img", txtImgUrl.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Audio", txtAudioUrl.Text.Trim() == "" ? (object)DBNull.Value : txtAudioUrl.Text.Trim());
                         
                         cmd.ExecuteNonQuery();
                     }
@@ -84,6 +85,7 @@ namespace AviLearn.Web.Admin
                 txtFamily.Text = "";
                 txtDesc.Text = "";
                 txtImgUrl.Text = "";
+                txtAudioUrl.Text = "";
                 
                 LoadBirds();
             }

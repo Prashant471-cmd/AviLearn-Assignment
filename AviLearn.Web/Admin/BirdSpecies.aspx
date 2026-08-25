@@ -47,6 +47,10 @@
                 <label class="form-label">Image URL</label>
                 <asp:TextBox ID="txtImgUrl" runat="server" CssClass="form-input"></asp:TextBox>
             </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label class="form-label">Audio URL</label>
+                <asp:TextBox ID="txtAudioUrl" runat="server" CssClass="form-input"></asp:TextBox>
+            </div>
         </div>
         
         <asp:Button ID="btnAdd" runat="server" Text="Add Species" CssClass="btn btn-primary" OnClick="btnAdd_Click" />
