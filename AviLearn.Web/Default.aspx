@@ -1,97 +1,192 @@
-<%@ Page Title="Home" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="AviLearn.Web.Default" %>
+<%@ Page Title="Home" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="Default.aspx.cs"
+    Inherits="AviLearn.Web.Default" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <style>
-        .hero {
-            background: linear-gradient(135deg, #F7F5F0 0%, #E5E2D9 100%);
-            padding: 6rem 0;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: #121212;
-        }
-        .hero p {
-            font-size: 1.25rem;
-            color: #4A4A4A;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            font-style: italic;
-            font-family: 'Newsreader', serif;
-        }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-        .feature-card {
-            text-align: left;
-        }
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background-color: #3D4435;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-    </style>
-</asp:Content>
+    <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+        <style>
+            .hero {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+                padding: 2rem 5% 4rem 5%;
+                min-height: calc(100vh - 120px);
+                gap: 4rem;
+            }
 
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <section class="hero">
-        <div class="container">
-            <h1>Discover the Science of <span style="color: #6B9F5E; font-style: italic;">Ornithology</span></h1>
-            <p>
-                AviLearn bridges the gap between amateur bird watching and professional ornithological studies. Explore our interactive directory, test your knowledge, and build your life list.
-            </p>
-            <div>
-                <% if (Session["UserRole"] == null) { %>
-                    <a href="Register.aspx" class="btn btn-primary" style="margin-right: 1rem;">Start Learning Free</a>
-                <% } else { %>
-                    <a href="Dashboard.aspx" class="btn btn-primary" style="margin-right: 1rem;">Go to Dashboard</a>
-                <% } %>
-                <a href="BirdDirectory.aspx" class="btn btn-ghost">Browse Directory</a>
-            </div>
-        </div>
-    </section>
+            /* --- Left Column: Text & Actions --- */
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                gap: 2.5rem;
+                max-width: 600px;
+            }
 
-    <section class="section container">
-        <div style="text-align: center; margin-bottom: 3rem;">
-            <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #8C867A; margin-bottom: 0.5rem;">Interactive Learning</p>
-            <h2>Everything you need to master birding</h2>
-        </div>
+            .title-group h1 {
+                font-size: 5rem;
+                margin-bottom: 0.5rem;
+            }
 
-        <div class="feature-grid">
-            <div class="card feature-card">
-                <div class="feature-icon">🦅</div>
-                <h3>Extensive Species Directory</h3>
-                <p style="margin-top: 0.5rem; color: #4A4A4A; font-size: 0.9rem;">
-                    Search and filter through documented species. Includes taxonomy, conservation status, diet, habitat, and detailed field marks.
+            .title-group p {
+                font-size: 1.1rem;
+                color: var(--color-text-light);
+                font-weight: 600;
+            }
+
+            .hero-desc {
+                font-size: 1.05rem;
+                line-height: 1.7;
+            }
+
+            .action-group {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .read-more {
+                font-weight: 900;
+                font-size: 1.1rem;
+                color: var(--color-text-primary);
+            }
+
+            .btn-icon {
+                width: 48px;
+                height: 48px;
+                background: #fff;
+                border: 2px solid var(--color-border);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--color-text-primary);
+                text-decoration: none;
+                transition: all 0.2s;
+                font-weight: bold;
+                font-size: 1.2rem;
+                box-shadow: var(--shadow-sm);
+            }
+
+            .btn-icon:hover {
+                border-color: var(--color-accent);
+                color: var(--color-accent);
+                transform: scale(1.05);
+            }
+
+            .social-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 1.5rem;
+                background: var(--color-accent);
+                padding: 0.75rem 2rem;
+                border-radius: var(--radius-pill);
+                border-bottom-left-radius: 8px;
+                /* Asymmetric styling */
+                align-self: flex-start;
+                margin-top: 1rem;
+            }
+
+            .social-pill a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: 800;
+                font-size: 1.1rem;
+                transition: opacity 0.2s;
+            }
+
+            .social-pill a:hover {
+                opacity: 0.8;
+            }
+
+            /* --- Right Column: Visuals --- */
+            .hero-visual {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 600px;
+            }
+
+            /* The massive background round shape behind the bird */
+            .hero-visual::before {
+                content: '';
+                position: absolute;
+                top: -30vh; /* Stretch far above the screen to hide flat top edge */
+                bottom: -30vh; /* Stretch far below the screen */
+                right: -50vw; /* Stretch far to the right */
+                left: 10%; /* Beautiful curve on the left */
+                background-color: #E0F2FE;
+                border-top-left-radius: 50vw;
+                border-bottom-left-radius: 50vw;
+                z-index: 1;
+            }
+
+            /* True Transparent PNG of a Macaw */
+            .bird-image {
+                position: absolute;
+                bottom: -15%;
+                right: -10%;
+                height: 125%;
+                width: auto;
+                max-width: none;
+                object-fit: contain;
+                object-position: bottom right;
+                z-index: 2;
+                filter: drop-shadow(-15px 25px 30px rgba(0, 0, 0, 0.4));
+            }
+
+            @media (max-width: 992px) {
+                .hero {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                    padding-top: 4rem;
+                }
+
+                .hero-visual {
+                    min-height: 400px;
+                }
+            }
+        </style>
+    </asp:Content>
+
+    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+        <div class="hero">
+
+            <!-- Left Column -->
+            <div class="hero-content">
+                <div class="title-group">
+                    <h1>Discover</h1>
+                    <p>The amazing avian world</p>
+                </div>
+
+                <p class="hero-desc">
+                    AviLearn is your ultimate companion for exploring and documenting bird species.
+                    They are popular in aviculture and ornithological studies.
+                    The greatest challenge threatening populations is rapid habitat loss, so education is our first step
+                    toward conservation.
                 </p>
+
+                <div class="action-group">
+                    <span class="read-more">Read more</span>
+                    <% if (Session["UserRole"]==null) { %>
+                        <a href="Register.aspx" class="btn-icon">&rarr;</a>
+                        <% } else { %>
+                            <a href="Dashboard.aspx" class="btn-icon">&rarr;</a>
+                            <% } %>
+                </div>
+
+                <div class="social-pill">
+                    <a href="#">f</a>
+                    <a href="#">ig</a>
+                    <a href="#">tw</a>
+                </div>
             </div>
-            
-            <div class="card feature-card">
-                <div class="feature-icon">🎧</div>
-                <h3>Acoustic Synthesizer</h3>
-                <p style="margin-top: 0.5rem; color: #4A4A4A; font-size: 0.9rem;">
-                    Listen to synthesized bird calls and songs to train your ear for field identification. Powered by Web Audio API.
-                </p>
+
+            <!-- Right Column -->
+            <div class="hero-visual">
+                <!-- Massive edge-bleeding true transparent PNG image -->
+                <img src="images/macaw.png" alt="Macaw" class="bird-image" />
             </div>
-            
-            <div class="card feature-card">
-                <div class="feature-icon">🎓</div>
-                <h3>Interactive Quizzes</h3>
-                <p style="margin-top: 0.5rem; color: #4A4A4A; font-size: 0.9rem;">
-                    Test your knowledge with multiple-choice quizzes ranging from beginner to expert difficulty. Earn XP and level up.
-                </p>
-            </div>
+
         </div>
-    </section>
-</asp:Content>
+    </asp:Content>

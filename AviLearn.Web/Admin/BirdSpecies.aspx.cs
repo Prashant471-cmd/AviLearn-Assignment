@@ -140,40 +140,48 @@ namespace AviLearn.Web.Admin
                 lblXenoCantoMsg.Style["color"] = "gray";
                 lblXenoCantoMsg.Visible = true;
 
-                XenoCantoService xenoCantoService = new XenoCantoService();
-                
-                // Fetching the top recording
-                string apiKey = ConfigurationManager.AppSettings["XenoCantoApiKey"];
-                if (string.IsNullOrEmpty(apiKey) || apiKey == "YOUR_API_KEY")
+                // Xeno-Canto API v3 requires an API key and strictly tagged queries. 
+                // We use WebClient for immediate dynamic compilation compatibility.
+                using (var client = new System.Net.WebClient())
                 {
-                    lblXenoCantoMsg.Text = "Please configure your Xeno-canto API key in Web.config.";
-                    lblXenoCantoMsg.Style["color"] = "red";
-                    return;
-                }
-
-                var response = await xenoCantoService.GetRecordingsAsync(scientificName, apiKey, perPage: 1);
-
-                if (response != null && response.Recordings != null && response.Recordings.Count > 0)
-                {
-                    var firstRecording = response.Recordings[0];
-                    txtAudioUrl.Text = firstRecording.FileUrl;
+                    client.Headers.Add("User-Agent", "AviLearnApp/1.0");
                     
-                    // Populate Image field with sonogram if available
-                    if (firstRecording.Sono != null)
+                    string apiKey = ConfigurationManager.AppSettings["XenoCantoApiKey"];
+                    if (string.IsNullOrEmpty(apiKey) || apiKey == "YOUR_API_KEY")
                     {
-                        if (!string.IsNullOrEmpty(firstRecording.Sono.Large))
-                            txtImgUrl.Text = "https:" + firstRecording.Sono.Large;
-                        else if (!string.IsNullOrEmpty(firstRecording.Sono.Medium))
-                            txtImgUrl.Text = "https:" + firstRecording.Sono.Medium;
+                        lblXenoCantoMsg.Text = "Please configure your Xeno-canto API key in Web.config.";
+                        lblXenoCantoMsg.Style["color"] = "red";
+                        return;
                     }
 
-                    lblXenoCantoMsg.Text = "Audio found and loaded!";
-                    lblXenoCantoMsg.Style["color"] = "green";
-                }
-                else
-                {
-                    lblXenoCantoMsg.Text = "No recordings found.";
-                    lblXenoCantoMsg.Style["color"] = "orange";
+                    // In v3, untagged queries are disabled. We MUST wrap the scientific name in the sp: tag
+                    // Note: Tags must be separated by a SPACE, not a plus sign, otherwise it throws a 400 Bad Request
+                    string encodedQuery = Uri.EscapeDataString("sp:\"" + scientificName + "\" grp:birds");
+                    string url = "https://xeno-canto.org/api/3/recordings?query=" + encodedQuery + "&key=" + Uri.EscapeDataString(apiKey);
+                    
+                    string jsonResponse = await client.DownloadStringTaskAsync(url);
+                    
+                    dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonResponse);
+
+                    if (data != null && data.recordings != null && data.recordings.Count > 0)
+                    {
+                        var firstRec = data.recordings[0];
+                        txtAudioUrl.Text = firstRec.file;
+                        
+                        if (firstRec.sono != null)
+                        {
+                            if (firstRec.sono.large != null) txtImgUrl.Text = "https:" + firstRec.sono.large;
+                            else if (firstRec.sono.med != null) txtImgUrl.Text = "https:" + firstRec.sono.med;
+                        }
+
+                        lblXenoCantoMsg.Text = "Audio found and loaded successfully!";
+                        lblXenoCantoMsg.Style["color"] = "green";
+                    }
+                    else
+                    {
+                        lblXenoCantoMsg.Text = "No recordings found.";
+                        lblXenoCantoMsg.Style["color"] = "orange";
+                    }
                 }
             }
             catch (Exception ex)

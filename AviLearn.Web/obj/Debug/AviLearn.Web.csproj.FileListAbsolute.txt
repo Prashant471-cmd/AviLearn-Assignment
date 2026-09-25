@@ -7,3 +7,13 @@ E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLea
 E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLearn.Web.pdb
 E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\bin\Newtonsoft.Json.dll
 E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLearn.07B7FADA.Up2Date
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\bin\AviLearn.Web.dll.config
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\bin\AviLearn.Web.dll
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\bin\AviLearn.Web.pdb
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\bin\Newtonsoft.Json.dll
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\bin\Newtonsoft.Json.xml
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\obj\Debug\AviLearn.Web.csproj.AssemblyReference.cache
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\obj\Debug\AviLearn.Web.csproj.CoreCompileInputs.cache
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\obj\Debug\AviLearn.07B7FADA.Up2Date
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\obj\Debug\AviLearn.Web.dll
+C:\Users\Acer\Desktop\AviLearn-Assignment\AviLearn.Web\obj\Debug\AviLearn.Web.pdb

@@ -81,46 +81,34 @@ namespace AviLearn.Web.Services
     public class XenoCantoService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "https://xeno-canto.org/api/3/recordings";
+        private const string BaseUrl = "https://xeno-canto.org/api/2/recordings";
 
         public XenoCantoService()
         {
             _httpClient = new HttpClient();
+            // Important for Xeno-canto API as they block blank user agents
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "AviLearnApp/1.0");
         }
 
         /// <summary>
-        /// Fetches bird audio recordings from the Xeno-canto API v3.
+        /// Fetches bird audio recordings from the Xeno-canto API v2.
         /// </summary>
-        /// <param name="scientificName">The scientific name (Genus species) of the bird.</param>
-        /// <param name="apiKey">Required API key for Xeno-canto.</param>
-        /// <param name="perPage">Optional: Number of results per page (default 100).</param>
-        /// <param name="page">Optional: Page number to fetch.</param>
-        /// <returns>A typed response containing the recordings.</returns>
-        public async Task<XenoCantoResponse> GetRecordingsAsync(string scientificName, string apiKey, int perPage = 100, int? page = null)
+        public async Task<XenoCantoResponse> GetRecordingsAsync(string scientificName, string apiKey = null, int perPage = 100, int? page = null)
         {
             if (string.IsNullOrWhiteSpace(scientificName))
             {
                 throw new ArgumentException("Scientific name must be provided.", nameof(scientificName));
             }
 
-            if (string.IsNullOrWhiteSpace(apiKey))
-            {
-                throw new ArgumentException("API key is strictly required for Xeno-canto API v3.", nameof(apiKey));
-            }
-
             try
             {
-                // Construct the query. Use + as requested to join tags. e.g. sp:"Troglodytes troglodytes"+grp:birds
-                string encodedSpecies = Uri.EscapeDataString($"sp:\"{scientificName}\"");
-                string encodedGroup = Uri.EscapeDataString("grp:birds");
-                string queryValue = $"{encodedSpecies}+{encodedGroup}";
+                // Xeno-canto API v2 expects the scientific name directly without sp:"" because Genus and Species are separate tags internally
+                string queryValue = Uri.EscapeDataString(scientificName);
                 
                 // Construct the request URL
-                string requestUrl = $"{BaseUrl}?query={queryValue}&key={Uri.EscapeDataString(apiKey)}";
+                string requestUrl = $"{BaseUrl}?query={queryValue}";
 
-                // Add optional parameters if applicable
-                requestUrl += $"&per_page={perPage}";
-                
+                // Add optional parameters if applicable (though v2 uses page natively, not per_page)
                 if (page.HasValue)
                 {
                     requestUrl += $"&page={page.Value}";

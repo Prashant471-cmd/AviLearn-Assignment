@@ -8,7 +8,7 @@ namespace AviLearn.Web.Admin
 {
     public partial class Users : System.Web.UI.Page
     {
-        string connString = ConfigurationManager.ConnectionStrings["AviLearnDB"]?.ConnectionString ?? "";
+        string connString = ConfigurationManager.ConnectionStrings["AviLearnDB"] != null ? ConfigurationManager.ConnectionStrings["AviLearnDB"].ConnectionString : "";
 
         protected void Page_Load(object sender, EventArgs e)
         {

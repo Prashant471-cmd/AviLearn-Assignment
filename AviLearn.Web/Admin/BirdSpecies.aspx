@@ -11,30 +11,30 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="card" style="margin-bottom: 2rem;">
-        <h2 style="margin-bottom: 1rem;">Add New Species</h2>
+    <div class="admin-card" style="margin-bottom: 3rem;">
+        <h2 style="margin-bottom: 2rem; color: var(--color-text-primary); font-weight: 900;">Add New Species</h2>
         
-        <asp:Label ID="lblMsg" runat="server" Visible="false" style="display: block; margin-bottom: 1rem; color: var(--color-emerald); font-weight: bold;"></asp:Label>
+        <asp:Label ID="lblMsg" runat="server" Visible="false" style="display: block; margin-bottom: 1.5rem; color: #10B981; font-weight: 800; background: #D1FAE5; padding: 1rem; border-radius: var(--radius-sm);"></asp:Label>
         
         <div class="form-grid">
             <div class="form-group">
-                <label class="form-label">Common Name</label>
+                <label class="form-label" style="font-weight: 700;">Common Name</label>
                 <asp:TextBox ID="txtCommonName" runat="server" CssClass="form-input"></asp:TextBox>
             </div>
             <div class="form-group">
-                <label class="form-label">Scientific Name</label>
+                <label class="form-label" style="font-weight: 700;">Scientific Name</label>
                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                     <asp:TextBox ID="txtScientificName" runat="server" CssClass="form-input" style="flex: 1;"></asp:TextBox>
-                    <asp:Button ID="btnFetchXenoCanto" runat="server" Text="Fetch from Xeno-canto" CssClass="btn btn-primary" OnClick="btnFetchXenoCanto_Click" CausesValidation="false" formnovalidate="formnovalidate" />
+                    <asp:Button ID="btnFetchXenoCanto" runat="server" Text="Fetch from Xeno-canto" CssClass="btn btn-primary" style="padding: 0.75rem 1.5rem; font-weight: 800;" OnClick="btnFetchXenoCanto_Click" CausesValidation="false" formnovalidate="formnovalidate" />
                 </div>
                 <asp:Label ID="lblXenoCantoMsg" runat="server" Visible="false" style="display: block; margin-top: 0.5rem; font-size: 0.9em;"></asp:Label>
             </div>
             <div class="form-group">
-                <label class="form-label">Family</label>
+                <label class="form-label" style="font-weight: 700;">Family</label>
                 <asp:TextBox ID="txtFamily" runat="server" CssClass="form-input"></asp:TextBox>
             </div>
             <div class="form-group">
-                <label class="form-label">Conservation Status</label>
+                <label class="form-label" style="font-weight: 700;">Conservation Status</label>
                 <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-input">
                     <asp:ListItem Text="Least Concern (LC)" Value="LC"></asp:ListItem>
                     <asp:ListItem Text="Near Threatened (NT)" Value="NT"></asp:ListItem>
@@ -44,24 +44,24 @@
                 </asp:DropDownList>
             </div>
             <div class="form-group" style="grid-column: 1 / -1;">
-                <label class="form-label">Description</label>
+                <label class="form-label" style="font-weight: 700;">Description</label>
                 <asp:TextBox ID="txtDesc" runat="server" CssClass="form-input" TextMode="MultiLine" Rows="3"></asp:TextBox>
             </div>
             <div class="form-group" style="grid-column: 1 / -1;">
-                <label class="form-label">Image URL</label>
-                <asp:TextBox ID="txtImgUrl" runat="server" CssClass="form-input"></asp:TextBox>
+                <label class="form-label" style="font-weight: 700;">Image URL (Optional)</label>
+                <asp:TextBox ID="txtImgUrl" runat="server" CssClass="form-input" Placeholder="Leave blank to auto-fetch from Wikipedia"></asp:TextBox>
             </div>
             <div class="form-group" style="grid-column: 1 / -1;">
-                <label class="form-label">Audio URL</label>
+                <label class="form-label" style="font-weight: 700;">Audio URL</label>
                 <asp:TextBox ID="txtAudioUrl" runat="server" CssClass="form-input"></asp:TextBox>
             </div>
         </div>
         
-        <asp:Button ID="btnAdd" runat="server" Text="Add Species" CssClass="btn btn-primary" OnClick="btnAdd_Click" />
+        <asp:Button ID="btnAdd" runat="server" Text="Add Species" CssClass="btn btn-primary" style="margin-top: 1.5rem; padding: 1rem 2rem; font-size: 1.1rem; font-weight: 800;" OnClick="btnAdd_Click" />
     </div>
 
-    <div class="card">
-        <h2 style="margin-bottom: 1rem;">Existing Species Directory</h2>
+    <div class="admin-card">
+        <h2 style="margin-bottom: 2rem; color: var(--color-text-primary); font-weight: 900;">Existing Species Directory</h2>
         
         <asp:GridView ID="gvBirds" runat="server" AutoGenerateColumns="False" 
             CssClass="data-table" GridLines="None" DataKeyNames="Id"

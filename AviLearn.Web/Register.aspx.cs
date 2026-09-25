@@ -28,7 +28,7 @@ namespace AviLearn.Web
             {
                 string name = txtName.Text.Trim();
                 string email = txtEmail.Text.Trim();
-                string password = txtPassword.Text; // In production, HASH this
+                string password = FormsAuthentication.HashPasswordForStoringInConfigFile(txtPassword.Text, "SHA1");
                 string newId = "usr_" + Guid.NewGuid().ToString().Substring(0, 8);
 
                 string connString = ConfigurationManager.ConnectionStrings["AviLearnDB"].ConnectionString;
@@ -76,7 +76,7 @@ namespace AviLearn.Web
                 }
                 catch (Exception ex)
                 {
-                    lblMessage.Text = "Database error. Please ensure the MySQL database is running and configured in Web.config. " + ex.Message;
+                    lblMessage.Text = "Database error. Please ensure the SQL Server database is running and configured in Web.config. " + ex.Message;
                     lblMessage.Visible = true;
                 }
             }

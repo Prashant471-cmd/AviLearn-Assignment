@@ -16,18 +16,17 @@
             text-align: center;
         }
         .stat-card h3 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--color-text-muted);
+            color: var(--color-text-light);
+            font-weight: 800;
             margin-bottom: 0.5rem;
         }
         .stat-card .value {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 900;
-            color: var(--color-accent);
+            color: var(--color-nav-active);
         }
     </style>
 </asp:Content>
@@ -48,8 +47,8 @@
         </div>
     </div>
 
-    <div class="card">
-        <h2 style="margin-bottom: 1rem;">Recent User Registrations</h2>
+    <div class="admin-card">
+        <h2 style="margin-bottom: 2rem; color: var(--color-text-primary); font-weight: 900;">Recent User Registrations</h2>
         <asp:GridView ID="gvRecentUsers" runat="server" AutoGenerateColumns="False" 
             CssClass="data-table" GridLines="None" EmptyDataText="No users found.">
             <Columns>
