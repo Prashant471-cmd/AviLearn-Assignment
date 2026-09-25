@@ -162,4 +162,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <ItemGroup>
+    <Content Include="images\**\*.*" />
+  </ItemGroup>
 </Project>
