@@ -47,6 +47,7 @@
                     <% if (Session["UserRole"] == null) { %>
                         <a href="Login.aspx">Login</a>
                     <% } else { %>
+                        <a href="Profile.aspx" style="margin-right: 15px; font-weight: 700; color: var(--accent);">My Profile</a>
                         <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="btn-logout" OnClick="btnLogout_Click" CausesValidation="false" />
                     <% } %>
                 </div>
