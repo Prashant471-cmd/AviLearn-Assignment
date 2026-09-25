@@ -94,10 +94,13 @@
                         </div>
                         <div class="bird-desc"><%# Eval("Description") %></div>
                         
-                        <div style="display: flex; gap: 1rem;">
-                            <button type="button" class="audio-btn" onclick='playBirdCall(<%# Eval("AudioFrequencyHz") %>, "<%# Eval("AudioPattern") %>")'>
-                                ▶ Play Call
-                            </button>
+                        <div style="display: flex; gap: 1rem; flex-direction: column;">
+                            <div class="audio-container">
+                                <%# string.IsNullOrEmpty(Eval("AudioUrl") as string) ? 
+                                    "<span style='color: var(--color-text-muted); font-size: 0.875rem; font-style: italic; padding: 0.5rem 0; display: inline-block;'>Audio sample unavailable</span>" : 
+                                    string.Format("<audio controls style='height: 40px; outline: none; max-width: 100%;'><source src='{0}' type='audio/mpeg' />Your browser does not support the audio element.</audio>", Eval("AudioUrl")) 
+                                %>
+                            </div>
                             <span style="font-size: 0.75rem; color: var(--color-text-muted); display: flex; align-items: center;">
                                 <strong>Habitat:</strong>&nbsp;<%# Eval("Habitat") %>
                             </span>

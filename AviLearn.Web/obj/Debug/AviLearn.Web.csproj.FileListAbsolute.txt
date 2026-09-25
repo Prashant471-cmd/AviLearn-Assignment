@@ -5,3 +5,5 @@ E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\bin\AviLearn.Web
 E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\bin\AviLearn.Web.pdb
 E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLearn.Web.dll
 E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLearn.Web.pdb
+E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\bin\Newtonsoft.Json.dll
+E:\Assignment SEM4\Web application\ornithology-hub\AviLearn.Web\obj\Debug\AviLearn.07B7FADA.Up2Date
