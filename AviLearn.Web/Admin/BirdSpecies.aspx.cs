@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.UI.WebControls;
+using AviLearn.Web.Services;
 
 namespace AviLearn.Web.Admin
 {
@@ -17,7 +18,7 @@ namespace AviLearn.Web.Admin
                 LoadBirds();
             }
         }
-
+    //  Here is the code for birdspecies
         private void LoadBirds()
         {
             try
@@ -119,6 +120,66 @@ namespace AviLearn.Web.Admin
                 lblMsg.Text = "Cannot delete demo data without a database connection.";
                 lblMsg.Style.Add("color", "red");
                 lblMsg.Visible = true;
+            }
+        }
+
+        protected async void btnFetchXenoCanto_Click(object sender, EventArgs e)
+        {
+            string scientificName = txtScientificName.Text.Trim();
+            if (string.IsNullOrEmpty(scientificName))
+            {
+                lblXenoCantoMsg.Text = "Please enter a scientific name first.";
+                lblXenoCantoMsg.Style["color"] = "red";
+                lblXenoCantoMsg.Visible = true;
+                return;
+            }
+
+            try
+            {
+                lblXenoCantoMsg.Text = "Fetching...";
+                lblXenoCantoMsg.Style["color"] = "gray";
+                lblXenoCantoMsg.Visible = true;
+
+                XenoCantoService xenoCantoService = new XenoCantoService();
+                
+                // Fetching the top recording
+                string apiKey = ConfigurationManager.AppSettings["XenoCantoApiKey"];
+                if (string.IsNullOrEmpty(apiKey) || apiKey == "YOUR_API_KEY")
+                {
+                    lblXenoCantoMsg.Text = "Please configure your Xeno-canto API key in Web.config.";
+                    lblXenoCantoMsg.Style["color"] = "red";
+                    return;
+                }
+
+                var response = await xenoCantoService.GetRecordingsAsync(scientificName, apiKey, perPage: 1);
+
+                if (response != null && response.Recordings != null && response.Recordings.Count > 0)
+                {
+                    var firstRecording = response.Recordings[0];
+                    txtAudioUrl.Text = firstRecording.FileUrl;
+                    
+                    // Populate Image field with sonogram if available
+                    if (firstRecording.Sono != null)
+                    {
+                        if (!string.IsNullOrEmpty(firstRecording.Sono.Large))
+                            txtImgUrl.Text = "https:" + firstRecording.Sono.Large;
+                        else if (!string.IsNullOrEmpty(firstRecording.Sono.Medium))
+                            txtImgUrl.Text = "https:" + firstRecording.Sono.Medium;
+                    }
+
+                    lblXenoCantoMsg.Text = "Audio found and loaded!";
+                    lblXenoCantoMsg.Style["color"] = "green";
+                }
+                else
+                {
+                    lblXenoCantoMsg.Text = "No recordings found.";
+                    lblXenoCantoMsg.Style["color"] = "orange";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblXenoCantoMsg.Text = "Error fetching data: " + ex.Message;
+                lblXenoCantoMsg.Style["color"] = "red";
             }
         }
     }

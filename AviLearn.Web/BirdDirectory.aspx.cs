@@ -30,7 +30,7 @@ namespace AviLearn.Web
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
                     conn.Open();
-                    string query = "SELECT Id, CommonName, ScientificName, Family, Description, ConservationStatus, ImageUrl, Habitat, AudioFrequencyHz, AudioPattern FROM BirdSpecies";
+                    string query = "SELECT Id, CommonName, ScientificName, Family, Description, ConservationStatus, ImageUrl, Habitat, AudioFrequencyHz, AudioPattern, AudioUrl FROM BirdSpecies";
                     
                     if (!string.IsNullOrEmpty(searchTerm))
                     {
@@ -63,9 +63,10 @@ namespace AviLearn.Web
                 dt.Columns.Add("Habitat");
                 dt.Columns.Add("AudioFrequencyHz");
                 dt.Columns.Add("AudioPattern");
+                dt.Columns.Add("AudioUrl");
                 
-                dt.Rows.Add("Northern Cardinal", "Cardinalis cardinalis", "Cardinalidae", "A mid-sized songbird with bright red plumage.", "LC", "https://images.unsplash.com/photo-1549608276-5786777e6587", "Woodlands", "1200", "whistle-slide");
-                dt.Rows.Add("Blue Jay", "Cyanocitta cristata", "Corvidae", "A passerine bird with blue plumage and a crest.", "LC", "https://images.unsplash.com/photo-1590494444390-e88383c07223", "Forests", "1400", "chirp-repeat");
+                dt.Rows.Add("Northern Cardinal", "Cardinalis cardinalis", "Cardinalidae", "A mid-sized songbird with bright red plumage.", "LC", "https://images.unsplash.com/photo-1549608276-5786777e6587", "Woodlands", "1200", "whistle-slide", "");
+                dt.Rows.Add("Blue Jay", "Cyanocitta cristata", "Corvidae", "A passerine bird with blue plumage and a crest.", "LC", "https://images.unsplash.com/photo-1590494444390-e88383c07223", "Forests", "1400", "chirp-repeat", "");
             }
 
             if (dt.Rows.Count > 0)

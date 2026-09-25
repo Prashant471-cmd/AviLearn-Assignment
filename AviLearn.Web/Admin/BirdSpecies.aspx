@@ -1,4 +1,4 @@
-<%@ Page Title="Manage Bird Species" Language="C#" MasterPageFile="~/Admin/AdminMaster.master" AutoEventWireup="true" CodeFile="BirdSpecies.aspx.cs" Inherits="AviLearn.Web.Admin.BirdSpecies" %>
+<%@ Page Title="Manage Bird Species" Async="true" Language="C#" MasterPageFile="~/Admin/AdminMaster.master" AutoEventWireup="true" CodeFile="BirdSpecies.aspx.cs" Inherits="AviLearn.Web.Admin.BirdSpecies" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style>
@@ -23,7 +23,11 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Scientific Name</label>
-                <asp:TextBox ID="txtScientificName" runat="server" CssClass="form-input"></asp:TextBox>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <asp:TextBox ID="txtScientificName" runat="server" CssClass="form-input" style="flex: 1;"></asp:TextBox>
+                    <asp:Button ID="btnFetchXenoCanto" runat="server" Text="Fetch from Xeno-canto" CssClass="btn btn-primary" OnClick="btnFetchXenoCanto_Click" CausesValidation="false" formnovalidate="formnovalidate" />
+                </div>
+                <asp:Label ID="lblXenoCantoMsg" runat="server" Visible="false" style="display: block; margin-top: 0.5rem; font-size: 0.9em;"></asp:Label>
             </div>
             <div class="form-group">
                 <label class="form-label">Family</label>
