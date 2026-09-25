@@ -30,15 +30,16 @@ namespace AviLearn.Web
             if (Page.IsValid)
             {
                 string email = txtEmail.Text.Trim();
-                string password = txtPassword.Text; // In a real app, hash this and compare
+                string rawPassword = txtPassword.Text;
+                string password = FormsAuthentication.HashPasswordForStoringInConfigFile(rawPassword, "SHA1");
 
                 // Fallback demo accounts for immediate testing without DB
-                if (email == "admin@avilearn.com" && password == "Admin123!")
+                if (email == "admin@avilearn.com" && rawPassword == "Admin123!")
                 {
                     AuthenticateUser("usr_admin_1", "Admin User", "admin");
                     return;
                 }
-                if (email == "member@avilearn.com" && password == "Member123!")
+                if (email == "member@avilearn.com" && rawPassword == "Member123!")
                 {
                     AuthenticateUser("usr_member_1", "Demo Member", "member");
                     return;

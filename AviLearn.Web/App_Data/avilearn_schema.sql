@@ -23,7 +23,7 @@ BEGIN
     );
 END
 GO
-Select * From BirdSpecies;
+
 -- Bird Species Table
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='BirdSpecies' and xtype='U')
 BEGIN

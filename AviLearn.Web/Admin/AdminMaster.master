@@ -6,47 +6,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - Admin - AviLearn</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
     <link href="~/styles/avilearn.css" rel="stylesheet" type="text/css" />
 
     <style>
         .admin-layout {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            gap: 2rem;
+            display: flex;
             min-height: 100vh;
+            background-color: var(--color-bg-alt);
         }
+        
         .admin-sidebar {
-            background-color: #1a1a2e;
-            color: white;
-            padding: 2rem 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            background-color: var(--color-bg-canvas);
+            border-right: 1px solid var(--color-border);
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            overflow-y: auto;
         }
-        .admin-sidebar a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
+        
+        .admin-sidebar h2 {
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: var(--color-text-primary);
+            margin-bottom: 3rem;
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .admin-sidebar h2::before {
+            content: '';
             display: block;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            border-radius: var(--radius-sm);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 600;
+            width: 16px;
+            height: 16px;
+            background-color: var(--color-accent);
+            border-radius: 4px;
         }
+        
+        .admin-sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .admin-sidebar a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        
+        .admin-sidebar a svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.5;
+            flex-shrink: 0;
+        }
+        
         .admin-sidebar a:hover {
-            background-color: rgba(255,255,255,0.1);
-            color: white;
+            background-color: var(--color-bg-alt);
+            color: var(--color-nav-active);
+            transform: translateX(4px);
         }
+        
+        .admin-sidebar a.exit-link {
+            margin-top: auto;
+            color: #EF4444;
+            background-color: #FEF2F2;
+        }
+        
+        .admin-sidebar a.exit-link:hover {
+            background-color: #FEE2E2;
+            color: #DC2626;
+        }
+
         .admin-main {
-            padding: 2rem;
-            background-color: var(--color-bg);
+            margin-left: 260px;
+            flex: 1;
+            padding: 3rem 4rem;
+            position: relative;
+            z-index: 10;
         }
+
+        .admin-main::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 260px;
+            width: calc(100% - 260px);
+            height: 100%;
+            background-image: url('/images/dashboard_bg_circles.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.3;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+        
+        .admin-header h1 {
+            font-size: 2.25rem;
+            font-weight: 900;
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+        
+        .admin-user-badge {
+            background: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--color-border);
+            font-weight: 700;
+            color: var(--color-nav-active);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* Global Admin Card Styles */
+        .admin-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border);
         }
     </style>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
@@ -55,24 +158,38 @@
     <form id="form1" runat="server">
         <div class="admin-layout">
             <aside class="admin-sidebar">
-                <h2 style="font-family: 'Playfair Display', serif; color: white; margin-bottom: 2rem; padding-left: 1rem;">AviLearn Admin</h2>
+                <h2>AviLearn</h2>
                 <nav>
-                    <a href="Default.aspx">Activity Overview</a>
-                    <a href="BirdSpecies.aspx">Bird Species (CRUD)</a>
-                    <a href="Users.aspx">User Accounts</a>
-                    <a href="../Default.aspx" style="margin-top: 2rem; color: #D32F2F;">&larr; Exit to Public Site</a>
+                    <a href="Default.aspx">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                        Activity Overview
+                    </a>
+                    <a href="BirdSpecies.aspx">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                        Bird Species
+                    </a>
+                    <a href="Users.aspx">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        User Accounts
+                    </a>
                 </nav>
+                <a href="../Default.aspx" class="exit-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Exit to Public Site
+                </a>
             </aside>
             
             <main class="admin-main">
                 <header class="admin-header">
-                    <h1 style="font-size: 1.5rem; margin: 0;"><%: Page.Title %></h1>
-                    <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem;">
+                    <h1><%: Page.Title %></h1>
+                    <span class="admin-user-badge">
                         Admin: <%: Session["UserName"] %>
                     </span>
                 </header>
                 
-                <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+                <div class="admin-content-wrapper">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+                </div>
             </main>
         </div>
     </form>

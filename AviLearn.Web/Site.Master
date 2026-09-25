@@ -6,119 +6,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - AviLearn</title>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet" />
 
-    <!-- External CSS -->
-    <link href="~/styles/avilearn.css" rel="stylesheet" type="text/css" />
+    <link href="~/styles/avilearn.css?v=4" rel="stylesheet" type="text/css" />
 
-    <!-- Internal CSS overrides for master page -->
-    <style>
-        .site-header {
-            background-color: #FDFCFB;
-            border-bottom: 1px solid #E5E2D9;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .nav-links a {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #121212;
-            text-decoration: none;
-            margin-right: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .nav-links a:hover {
-            color: #6B9F5E;
-        }
-        .user-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-        .btn-logout {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #D32F2F;
-        }
-        .brand {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 1.5rem;
-            color: #121212;
-            text-decoration: none;
-        }
-    </style>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" class="main-canvas">
         <header class="site-header">
-            <div class="container header-container">
-                <a href="Default.aspx" class="brand">AviLearn</a>
+            <a href="Default.aspx" class="brand">
+                <div class="brand-icon"></div>
+                <span class="brand-text">AviLearn</span>
+            </a>
+            
+            <nav class="nav-center">
+                <a href="Default.aspx" class='<%= Request.Url.AbsolutePath.EndsWith("Default.aspx", StringComparison.OrdinalIgnoreCase) || Request.Url.AbsolutePath.EndsWith("/") ? "active" : "" %>'>Discover</a>
+                <a href="BirdDirectory.aspx" class='<%= Request.Url.AbsolutePath.EndsWith("BirdDirectory.aspx", StringComparison.OrdinalIgnoreCase) ? "active" : "" %>'>Species</a>
                 
-                <nav class="nav-links">
-                    <a href="Default.aspx">Home</a>
-                    <a href="About.aspx">About</a>
-                    <a href="BirdDirectory.aspx">Directory</a>
-                    
-                    <% if (Session["UserRole"] != null) { %>
-                        <a href="Dashboard.aspx">Dashboard</a>
-                        <a href="Quiz.aspx">Quizzes</a>
-                        <% if (Session["UserRole"].ToString() == "admin") { %>
-                            <a href="Admin/Default.aspx" style="color: #D32F2F;">Admin</a>
-                        <% } %>
+                <% if (Session["UserRole"] != null) { %>
+                    <a href="Dashboard.aspx" class='<%= Request.Url.AbsolutePath.EndsWith("Dashboard.aspx", StringComparison.OrdinalIgnoreCase) ? "active" : "" %>'>Dashboard</a>
+                    <a href="Quiz.aspx" class='<%= Request.Url.AbsolutePath.EndsWith("Quiz.aspx", StringComparison.OrdinalIgnoreCase) ? "active" : "" %>'>Quizzes</a>
+                    <% if (Session["UserRole"].ToString() == "admin") { %>
+                        <a href="Admin/Default.aspx" style="color: #EF4444;" class='<%= Request.Url.AbsolutePath.EndsWith("Admin/Default.aspx", StringComparison.OrdinalIgnoreCase) ? "active" : "" %>'>Admin</a>
                     <% } %>
-                </nav>
+                <% } else { %>
+                    <a href="About.aspx" class='<%= Request.Url.AbsolutePath.EndsWith("About.aspx", StringComparison.OrdinalIgnoreCase) ? "active" : "" %>'>About</a>
+                <% } %>
+            </nav>
 
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search..." />
+                </div>
+                
                 <div class="user-actions">
                     <% if (Session["UserRole"] == null) { %>
-                        <a href="Login.aspx" class="btn btn-ghost">Sign In</a>
-                        <a href="Register.aspx" class="btn btn-primary">Register</a>
+                        <a href="Login.aspx">Login</a>
                     <% } else { %>
-                        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem; font-weight: 600;">
-                            Welcome, <%: Session["UserName"] %>!
-                        </span>
-                        <asp:Button ID="btnLogout" runat="server" Text="Log Out" CssClass="btn-logout" OnClick="btnLogout_Click" CausesValidation="false" />
+                        <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="btn-logout" OnClick="btnLogout_Click" CausesValidation="false" />
                     <% } %>
                 </div>
             </div>
         </header>
 
-        <main id="main-content" role="main" style="min-height: calc(100vh - 200px);">
+        <main id="main-content" role="main" style="flex: 1; display: flex; flex-direction: column;">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </main>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const mainContent = document.getElementById("main-content");
+                if (mainContent) {
+                    // Trigger entrance animation
+                    mainContent.classList.add("page-transition");
+                }
 
-        <footer style="background-color: #3D4435; color: #FDFCFB; padding: 2rem 0; margin-top: 4rem;">
-            <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <span style="font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.25rem;">AviLearn</span>
-                    <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; color: #C5C0B8; margin-top: 0.5rem;">
-                        Interactive Digital Learning Hub for Ornithology
-                    </p>
-                </div>
-                <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; color: #C5C0B8;">
-                    &copy; <%: DateTime.Now.Year %> AviLearn. Built with ASP.NET Web Forms.
-                </p>
-            </div>
-        </footer>
+                document.querySelectorAll('a').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        const targetUrl = this.getAttribute('href');
+                        
+                        // Ignore buttons, hashes, empty links, new tabs, modifiers, or external links
+                        if (!targetUrl || 
+                            targetUrl.startsWith('#') || 
+                            targetUrl.startsWith('javascript:') || 
+                            this.target === '_blank' || 
+                            e.ctrlKey || e.metaKey || 
+                            this.hostname !== window.location.hostname) {
+                            return;
+                        }
+
+                        // Prevent default navigation to trigger fade out first
+                        e.preventDefault();
+                        if (mainContent) {
+                            mainContent.classList.add("fade-out");
+                        }
+                        
+                        // Wait for animation, then navigate
+                        setTimeout(() => {
+                            window.location.href = this.href;
+                        }, 300); // 300ms matches fadeOutSlideDown duration
+                    });
+                });
+            });
+        </script>
     </form>
 </body>
 </html>
